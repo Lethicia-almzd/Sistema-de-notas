@@ -1,4 +1,4 @@
-# 📚 Trabalho Final – Algoritmos I
+# 📚 Sistema de notas – Algoritmos I
 
 Sistema em C para gerenciamento de uma turma acadêmica via terminal.
 Permite cadastrar alunos, lançar notas e faltas, gerar relatórios, estatísticas e ranking de desempenho.
