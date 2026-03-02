@@ -22,16 +22,13 @@ int main()
         faltas[i] = 0;
         media[i] = 0;
         for (j = 0; j < M; j++)
-        {
             notas[i][j] = -1;
-        }
     }
 
     do
     {
         printf("\n===== SISTEMA DE GERENCIAMENTO DE TURMA =====\n");
         printf("\n===== MENU PRINCIPAL =====\n");
-
         printf("1. Cadastrar alunos\n");
         printf("2. Lancar notas\n");
         printf("3. Lancar faltas\n");
@@ -48,17 +45,13 @@ int main()
 
         case 1:
         {
-            int q, k;
-            int idValido;
-            int repetido;
+            int q, k, idValido, repetido;
 
             printf("\nQuantos alunos deseja cadastrar? ");
             scanf("%d", &q);
 
             if (q < 1 || q > N - totalAlunos)
-            {
-                printf("\nQuantidade invalida ou limite da turma excedido!\n");
-            }
+                printf("\nQuantidade invalida ou limite excedido!\n");
             else
             {
                 for (k = 0; k < q; k++)
@@ -68,23 +61,17 @@ int main()
                     idValido = 0;
                     while (idValido == 0)
                     {
-                        printf("Digite o ID (maior que 0): ");
+                        printf("Digite o ID: ");
                         scanf("%d", &id[totalAlunos]);
 
                         if (id[totalAlunos] <= 0)
-                        {
                             printf("ID invalido!\n");
-                        }
                         else
                         {
                             repetido = 0;
                             for (i = 0; i < totalAlunos; i++)
-                            {
                                 if (id[i] == id[totalAlunos])
-                                {
                                     repetido = 1;
-                                }
-                            }
 
                             if (repetido == 1)
                                 printf("ID ja existe!\n");
@@ -103,7 +90,81 @@ int main()
                     media[totalAlunos] = 0;
 
                     totalAlunos++;
-                    printf("Aluno cadastrado com sucesso!\n");
+                }
+            }
+            break;
+        }
+
+        case 2:
+        {
+            int idProcurado, encontrado = -1;
+
+            if (totalAlunos == 0)
+                printf("\nNenhum aluno cadastrado!\n");
+            else
+            {
+                printf("\nDigite o ID do aluno: ");
+                scanf("%d", &idProcurado);
+
+                for (i = 0; i < totalAlunos; i++)
+                    if (id[i] == idProcurado && encontrado == -1)
+                        encontrado = i;
+
+                if (encontrado == -1)
+                    printf("Aluno nao encontrado!\n");
+                else
+                {
+                    printf("Aluno: %s\n", nomes[encontrado]);
+
+                    for (j = 0; j < M; j++)
+                    {
+                        int valido = 0;
+                        while (valido == 0)
+                        {
+                            printf("Digite a nota %d (0 a 100): ", j + 1);
+                            scanf("%d", &notas[encontrado][j]);
+
+                            if (notas[encontrado][j] >= 0 && notas[encontrado][j] <= 100)
+                                valido = 1;
+                            else
+                                printf("Nota invalida!\n");
+                        }
+                    }
+                }
+            }
+            break;
+        }
+
+        case 3:
+        {
+            int idProcurado, encontrado = -1;
+
+            if (totalAlunos == 0)
+                printf("\nNenhum aluno cadastrado!\n");
+            else
+            {
+                printf("\nDigite o ID do aluno: ");
+                scanf("%d", &idProcurado);
+
+                for (i = 0; i < totalAlunos; i++)
+                    if (id[i] == idProcurado && encontrado == -1)
+                        encontrado = i;
+
+                if (encontrado == -1)
+                    printf("Aluno nao encontrado!\n");
+                else
+                {
+                    int valido = 0;
+                    while (valido == 0)
+                    {
+                        printf("Digite as faltas (0 a 100): ");
+                        scanf("%d", &faltas[encontrado]);
+
+                        if (faltas[encontrado] >= 0 && faltas[encontrado] <= 100)
+                            valido = 1;
+                        else
+                            printf("Valor invalido!\n");
+                    }
                 }
             }
             break;
@@ -112,48 +173,28 @@ int main()
         case 4:
         {
             if (totalAlunos == 0)
-            {
                 printf("\nNenhum aluno cadastrado.\n");
-            }
             else
             {
-                printf("\n===== RESUMO DOS ALUNOS =====\n");
-
                 for (i = 0; i < totalAlunos; i++)
                 {
                     int completo = 1;
                     float soma = 0;
 
                     for (j = 0; j < M; j++)
-                    {
                         if (notas[i][j] == -1)
                             completo = 0;
                         else
                             soma += notas[i][j];
-                    }
 
-                    printf("\nID: %d\n", id[i]);
-                    printf("Nome: %s\n", nomes[i]);
-                    printf("Faltas: %d\n", faltas[i]);
+                    printf("\nID: %d\nNome: %s\nFaltas: %d\n", id[i], nomes[i], faltas[i]);
 
                     if (completo == 0)
-                    {
                         printf("Media: INCOMPLETO\n");
-                        printf("Situacao: SEM NOTAS\n");
-                    }
                     else
                     {
                         media[i] = soma / M;
                         printf("Media: %.2f\n", media[i]);
-
-                        if (media[i] >= 60 && faltas[i] <= 25)
-                            printf("Situacao: APROVADO\n");
-                        else if (media[i] < 60 && faltas[i] > 25)
-                            printf("Situacao: REPROVADO POR NOTA E FALTA\n");
-                        else if (media[i] < 60)
-                            printf("Situacao: REPROVADO POR NOTA\n");
-                        else
-                            printf("Situacao: REPROVADO POR FALTA\n");
                     }
                 }
             }
@@ -162,72 +203,47 @@ int main()
 
         case 5:
         {
-            if (totalAlunos == 0)
-            {
-                printf("\nNenhum aluno cadastrado.\n");
-            }
+            int busca, pos = -1;
+
+            printf("\nDigite o ID do aluno: ");
+            scanf("%d", &busca);
+
+            for (i = 0; i < totalAlunos; i++)
+                if (id[i] == busca && pos == -1)
+                    pos = i;
+
+            if (pos == -1)
+                printf("Aluno nao encontrado.\n");
             else
             {
-                int busca, pos = -1;
+                float soma = 0;
+                int completo = 1;
 
-                printf("\nDigite o ID do aluno: ");
-                scanf("%d", &busca);
+                printf("\nID: %d\nNome: %s\n", id[pos], nomes[pos]);
 
-                for (i = 0; i < totalAlunos; i++)
+                for (j = 0; j < M; j++)
                 {
-                    if (id[i] == busca)
-                        pos = i;
-                }
-
-                if (pos == -1)
-                {
-                    printf("Aluno nao encontrado.\n");
-                }
-                else
-                {
-                    printf("\n===== BOLETIM DO ALUNO =====\n");
-                    printf("ID: %d\n", id[pos]);
-                    printf("Nome: %s\n", nomes[pos]);
-
-                    int completo = 1;
-                    float soma = 0;
-
-                    for (j = 0; j < M; j++)
+                    if (notas[pos][j] == -1)
                     {
-                        if (notas[pos][j] == -1)
-                        {
-                            printf("Nota %d: NAO LANCADA\n", j + 1);
-                            completo = 0;
-                        }
-                        else
-                        {
-                            printf("Nota %d: %d\n", j + 1, notas[pos][j]);
-                            soma += notas[pos][j];
-                        }
-                    }
-
-                    printf("Faltas: %d\n", faltas[pos]);
-
-                    if (completo == 0)
-                    {
-                        printf("Media: INCOMPLETO\n");
-                        printf("Situacao: SEM NOTAS\n");
+                        printf("Nota %d: NAO LANCADA\n", j + 1);
+                        completo = 0;
                     }
                     else
                     {
-                        media[pos] = soma / M;
-                        printf("Media: %.2f\n", media[pos]);
-
-                        if (media[pos] >= 60 && faltas[pos] <= 25)
-                            printf("Situacao: APROVADO\n");
-                        else if (media[pos] < 60 && faltas[pos] > 25)
-                            printf("Situacao: REPROVADO POR NOTA E FALTA\n");
-                        else if (media[pos] < 60)
-                            printf("Situacao: REPROVADO POR NOTA\n");
-                        else
-                            printf("Situacao: REPROVADO POR FALTA\n");
+                        printf("Nota %d: %d\n", j + 1, notas[pos][j]);
+                        soma += notas[pos][j];
                     }
                 }
+
+                printf("Faltas: %d\n", faltas[pos]);
+
+                if (completo == 1)
+                {
+                    media[pos] = soma / M;
+                    printf("Media: %.2f\n", media[pos]);
+                }
+                else
+                    printf("Media: INCOMPLETO\n");
             }
             break;
         }
@@ -243,4 +259,4 @@ int main()
     } while (opcao != 8);
 
     return 0;
-} 
+}
