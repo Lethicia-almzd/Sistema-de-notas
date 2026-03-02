@@ -248,6 +248,144 @@ int main()
             break;
         }
 
+        case 6:
+        {
+            if (totalAlunos == 0)
+                printf("\nNenhum aluno cadastrado.\n");
+            else
+            {
+                float somaMedias = 0;
+                int completos = 0, incompletos = 0;
+                float maior = -1, menor = 101;
+                int posMaior = -1, posMenor = -1;
+
+                int aprov = 0, repNota = 0, repFalta = 0, repAmbos = 0;
+
+                for (i = 0; i < totalAlunos; i++)
+                {
+                    int completo = 1;
+                    float soma = 0;
+
+                    for (j = 0; j < M; j++)
+                    {
+                        if (notas[i][j] == -1)
+                            completo = 0;
+                        else
+                            soma += notas[i][j];
+                    }
+
+                    if (completo == 1)
+                    {
+                        media[i] = soma / M;
+                        somaMedias += media[i];
+                        completos++;
+
+                        if (media[i] > maior)
+                        {
+                            maior = media[i];
+                            posMaior = i;
+                        }
+
+                        if (media[i] < menor)
+                        {
+                            menor = media[i];
+                            posMenor = i;
+                        }
+
+                        if (media[i] >= 60 && faltas[i] <= 25)
+                            aprov++;
+                        else if (media[i] < 60 && faltas[i] > 25)
+                            repAmbos++;
+                        else if (media[i] < 60)
+                            repNota++;
+                        else
+                            repFalta++;
+                    }
+                    else
+                        incompletos++;
+                }
+
+                if (completos > 0)
+                {
+                    printf("\nMedia geral: %.2f\n", somaMedias / completos);
+
+                    printf("\nMaior media: %.2f\n", maior);
+                    printf("ID: %d Nome: %s\n", id[posMaior], nomes[posMaior]);
+
+                    printf("\nMenor media: %.2f\n", menor);
+                    printf("ID: %d Nome: %s\n", id[posMenor], nomes[posMenor]);
+
+                    printf("\nPercentual aprovados: %.2f%%\n", (aprov * 100.0) / completos);
+                    printf("Reprovados por nota: %.2f%%\n", (repNota * 100.0) / completos);
+                    printf("Reprovados por falta: %.2f%%\n", (repFalta * 100.0) / completos);
+                    printf("Reprovados por ambos: %.2f%%\n", (repAmbos * 100.0) / completos);
+                }
+
+                printf("Incompletos: %d\n", incompletos);
+            }
+            break;
+        }
+
+        case 7:
+        {
+            int usados[N] = {0};
+            int count = 0;
+
+            for (i = 0; i < totalAlunos; i++)
+            {
+                int completo = 1;
+                float soma = 0;
+
+                for (j = 0; j < M; j++)
+                {
+                    if (notas[i][j] == -1)
+                        completo = 0;
+                    else
+                        soma += notas[i][j];
+                }
+
+                if (completo == 1)
+                {
+                    media[i] = soma / M;
+                }
+            }
+
+            printf("\n===== TOP 5 =====\n");
+
+            while (count < 5)
+            {
+                float maior = -1;
+                int pos = -1;
+
+                for (i = 0; i < totalAlunos; i++)
+                {
+                    int completo = 1;
+
+                    for (j = 0; j < M; j++)
+                        if (notas[i][j] == -1)
+                            completo = 0;
+
+                    if (completo == 1 && usados[i] == 0 && media[i] > maior)
+                    {
+                        maior = media[i];
+                        pos = i;
+                    }
+                }
+
+                if (pos == -1)
+                    count = 5;
+                else
+                {
+                    printf("\n%d° Lugar\n", count + 1);
+                    printf("ID: %d\nNome: %s\nMedia: %.2f\n", id[pos], nomes[pos], media[pos]);
+
+                    usados[pos] = 1;
+                    count++;
+                }
+            }
+            break;
+        }
+
         case 8:
             printf("Saindo...\n");
             break;
