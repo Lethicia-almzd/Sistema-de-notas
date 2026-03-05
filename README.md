@@ -1,47 +1,50 @@
-## 📚 Trabalho Final – Algoritmos I 
+# 📚 Sistema de notas – Algoritmos I
 
-Sistema em linguagem C desenvolvido para gerenciamento de dados de uma turma acadêmica, permitindo cadastro de alunos, registro de notas e faltas, geração de relatórios, estatísticas e ranking de desempenho, conforme requisitos da disciplina de Algoritmos I.
+Sistema em C para gerenciamento de uma turma acadêmica via terminal.
+Permite cadastrar alunos, lançar notas e faltas, gerar relatórios, estatísticas e ranking de desempenho.
 
-O projeto tem como foco a aplicação prática de estruturas fundamentais da programação estruturada, incluindo vetores, matrizes, condicionais, laços de repetição e menu interativo utilizando switch-case, com toda a lógica implementada dentro da função main, conforme restrições propostas pelo professor.
+O projeto aplica conceitos de programação estruturada com vetores, matrizes, condicionais, laços de repetição e menu interativo em switch-case, com toda a lógica na função main, conforme solicitado pelo professor.
 
-## 🎯 Objetivos do Projeto
+---------------------------------------------- 
 
-Praticar manipulação de vetores e matrizes.
+## ⚙️ Funcionalidades
 
-Implementar validações de dados e controle de fluxo.
+Cadastro de alunos (ID e nome)
 
-Desenvolver um sistema completo em terminal.
+Lançamento de notas (4 avaliações)
 
-Trabalhar colaboração em equipe utilizando GitHub.
+Registro de faltas
 
------------------------------------
+Listagem geral dos alunos
 
-## ⚙️ Funcionalidades do Sistema
+Boletim individual
 
-Cadastro de alunos (ID e nome).
+Estatísticas da turma
 
-Lançamento de notas (4 avaliações).
+Ranking Top 5 médias
 
-Registro de faltas.
+Encerramento do sistema
 
-Listagem geral com resumo dos alunos.
+## 🧠 Estruturas utilizadas
 
-Boletim completo individual.
+Vetores e matrizes
 
-Estatísticas da turma.
+if/else e switch-case
 
-Ranking Top 5 médias.
+for, while ou do-while
 
-Encerramento do programa.
+## ▶️ Como executar no terminal
 
-## 🧠 Estruturas Utilizadas
+Abra o terminal na pasta do projeto
 
-Vetores de inteiros (IDs, faltas e médias).
+### Compile o programa:
 
-Matrizes de inteiros (notas dos alunos).
+gcc nome_do_arquivo.c -o programa
 
-Matrizes de strings (nomes).
+#### Execute:
 
-Condicionais (if/else e switch-case).
+./programa
 
-Laços de repetição (for, while ou do-while).
+📌 No Windows (Prompt de Comando):
+
+programa.exe
